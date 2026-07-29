@@ -1,0 +1,459 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signage Factory ERP</title>
+<script>
+
+if(sessionStorage.getItem("loggedIn") !== "true"){
+
+    window.location.href = "login.html";
+
+}
+
+</script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <h2>Signage ERP</h2>
+        </div>
+
+        <ul class="menu">
+            <li class="active" data-page="dashboard">🏠 Dashboard</li>
+            <li data-page="projects">📁 Projects</li>
+            <li data-page="stock">📦 Stock</li>
+            <li data-page="issue">📤 Issue</li>
+            <li data-page="return">📥 Return</li>
+            <li data-page="transactions">📜 Transaction</li>
+           <li data-page="settings">
+    ⚙️ Settings
+</li>
+        </ul>
+    </aside>
+
+    <!-- Main Area -->
+    <div class="main">
+
+        <!-- Topbar -->
+        <header class="topbar">
+            <h1 id="pageTitle">Dashboard</h1>
+<p id="currentDate"></p>
+            <div class="top-right">
+              <input
+    type="text"
+    placeholder="Search..."
+    id="searchBox"
+>
+                <span id="clock">
+                    --:--:--
+                </span>
+                <button id="logoutBtn" onclick="logout()">
+    🚪 Logout
+</button>
+            </div>
+        </header>
+
+        <!-- Dashboard -->
+       <section id="dashboard" class="page active-page">
+    
+    <h2>Dashboard</h2>
+    
+    <div class="dashboard-grid">
+        
+        <div class="card" onclick="showRunningProjects()">
+            <h3>Running Projects</h3>
+            <h1 id="runningProjects">0</h1>
+        </div>
+        
+        <div class="card" onclick="showPendingProjects()">
+            <h3>Pending Projects</h3>
+            <h1 id="pendingProjects">0</h1>
+        </div>
+        
+       <div class="card" onclick="showLowStock()">
+            <h3>Low Stock</h3>
+            <h1 id="lowStock">0</h1>
+        </div>
+        
+        <div class="card">
+            <h3>Transactions</h3>
+            <h1 id="totalTransactions">0</h1>
+        </div>
+        <div class="dashboard-details" id="dashboardDetails">
+
+    <h3 id="detailTitle">Details</h3>
+
+    <table>
+        <thead>
+            <tr id="detailHead"></tr>
+        </thead>
+        <tbody id="detailBody">
+            <tr>
+                <td style="text-align:center;">Click any dashboard card</td>
+            </tr>
+        </tbody>
+    </table>
+<h3 style="margin-top:15px;">Recent Transactions</h3>
+
+<table class="table" id="recentTransactionTable">
+    <thead>
+        <tr>
+            <th>Activity</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody id="recentTransactionBody">
+        <tr>
+            <td colspan="2">No Transactions</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<!---<button onclick="backupData()" class="btn">
+    📥 Backup
+</button>
+
+<button onclick="restoreData()" class="btn">
+    📤 Restore
+</button>
+--->
+<input type="file"
+       id="restoreFile"
+       accept=".json"
+       style="display:none"
+       onchange="importBackup(event)">
+    </div>
+    
+</section>
+
+
+        <!-- Projects -->
+       <section id="projects" class="page">
+    
+    <h2>Projects</h2>
+    
+    <div class="card">
+        
+        <h3>Add New Project</h3>
+        
+        <div class="form-grid">
+            
+            <input type="text" id="clientName" placeholder="Client Name">
+            
+            <input type="text" id="clientMobile" placeholder="Mobile Number">
+            
+            <input type="text" id="projectName" placeholder="Project Name">
+            
+            <select id="projectType">
+                <option value="">Select Project Type</option>
+                <option>Front Lit</option>
+                <option>Halo Lit</option>
+                <option>Glow Sign</option>
+                <option>ACP Sign</option>
+                <option>SS Letter</option>
+                <option>Acrylic</option>
+                <option>Pylon</option>
+            </select>
+            
+            <input type="date" id="deliveryDate">
+            
+            <select id="projectStatus">
+                <option>Pending</option>
+                <option>Running</option>
+                <option>Completed</option>
+            </select>
+            
+        </div>
+        
+        <button id="saveProjectBtn">Save Project</button>
+        
+    </div>
+    <div class="card" style="margin-top:20px;">
+
+    <h3>Project List</h3>
+
+    <table id="projectTable">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Client</th>
+                <th>Project</th>
+                <th>Status</th>
+                <th>Delivery</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody id="projectTableBody">
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</section> 
+
+
+        <!-- Stock -->
+     <section id="stock" class="page">
+    
+    <h2>Stock</h2>
+    
+    <div class="card">
+        
+        <h3>Add Material</h3>
+        
+        <div class="form-grid">
+            
+            <input type="text" id="materialName" placeholder="Material Name">
+            
+            <input type="text" id="materialCategory" placeholder="Category">
+            
+            <input type="text" id="materialSize" placeholder="Size">
+            
+            <select id="materialUnit">
+                <option>Nos</option>
+                <option>Sheet</option>
+                <option>Meter</option>
+                <option>Kg</option>
+            </select>
+            
+            <input type="number" id="materialQty" placeholder="Opening Qty">
+            
+            <input type="number" id="materialMinQty" placeholder="Minimum Qty">
+            
+            <input type="text" id="materialLocation" placeholder="Location">
+            
+        </div>
+        
+        <button id="saveStockBtn">Save Material</button>
+        
+    </div>
+    
+    <div class="card" style="margin-top:20px;">
+        
+        <h3>Material List</h3>
+        
+        <table>
+            
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Material</th>
+                    <th>Category</th>
+                    <th>Qty</th>
+                    <th>Unit</th>
+                    <th>Min</th>
+                    <th>Location</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            
+            <tbody id="stockTableBody"></tbody>
+            
+        </table>
+        
+    </div>
+    
+</section>
+        <!-- Issue -->
+      <section id="issue" class="page">
+    
+    <h2>Issue Material</h2>
+    
+    <div class="card">
+        
+        <h3>Issue New Material</h3>
+        
+        <div class="form-grid">
+            
+            <select id="issueProject">
+                <option value="">Select Project</option>
+            </select>
+            
+            <select id="issueMaterial">
+                <option value="">Select Material</option>
+            </select>
+            
+            <input type="number" id="issueQty" placeholder="Issue Quantity">
+            
+            <input type="date" id="issueDate">
+            
+            <input type="text" id="issueBy" placeholder="Issued By">
+            <input type="text" id="issueRemark" placeholder="Remark">
+        </div>
+        
+        <button id="saveIssueBtn">Issue Material</button>
+        
+    </div>
+    
+    <div class="card" style="margin-top:20px;">
+        
+        <h3>Issue History</h3>
+        
+        <table>
+            
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Project</th>
+                    <th>Material</th>
+                    <th>Qty</th>
+                    <th>Date</th>
+                    <th>Issued By</th>
+                    <th>Remark</th>
+                </tr>
+            </thead>
+            
+            <tbody id="issueTableBody"></tbody>
+            
+        </table>
+        
+    </div>
+    
+</section>
+        <!-- Return -->
+       <section id="return" class="page">
+    
+    <h2>Return Material</h2>
+    
+    <div class="card">
+        
+        <h3>Return Material</h3>
+        
+        <div class="form-grid">
+            
+            <select id="returnProject">
+                <option value="">Select Project</option>
+            </select>
+            
+            <select id="returnMaterial">
+                <option value="">Select Material</option>
+            </select>
+            
+            <input type="number" id="returnQty" placeholder="Return Quantity">
+            
+            <input type="date" id="returnDate">
+            
+            <input type="text" id="returnBy" placeholder="Return By">
+            
+            <input type="text" id="returnRemark" placeholder="Remark">
+            
+        </div>
+        
+        <button id="saveReturnBtn">Return Material</button>
+        
+    </div>
+    
+    <div class="card" style="margin-top:20px;">
+        
+        <h3>Return History</h3>
+        
+        <table>
+            
+            <thead>
+                
+                <tr>
+                    <th>ID</th>
+                    <th>Project</th>
+                    <th>Material</th>
+                    <th>Qty</th>
+                    <th>Date</th>
+                    <th>Return By</th>
+                    <th>Remark</th>
+                </tr>
+                
+            </thead>
+            
+            <tbody id="returnTableBody">
+                
+            </tbody>
+            
+        </table>
+        
+    </div>
+    
+</section>
+        <!-- Transaction -->
+        <section id="transactions" class="page">
+        <div class="card">
+    
+    <table>
+        
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Activity</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        
+        <tbody id="transactionTableBody"></tbody>
+        
+    </table>
+    
+</div>
+        </section>
+        <!-- ===========================
+SETTINGS
+=========================== -->
+
+<section id="settings" class="page">
+
+    <h2>⚙️ Settings</h2>
+
+    <div class="settings-card">
+
+        <h3>Account</h3>
+
+        <button onclick="changeUsername()">👤 Change Username</button>
+
+        <button onclick="changePassword()">🔑 Change Password</button>
+
+        <button onclick="changeRecoveryCode()">🛡️ Change Recovery Code</button>
+
+    </div>
+
+    <div class="settings-card">
+
+        <h3>Data Management</h3>
+
+        <button onclick="backupData()">💾 Backup Database</button>
+
+        <button onclick="restoreData()">📥 Restore Database</button>
+
+    </div>
+
+    <div class="settings-card">
+
+        <h3>System</h3>
+
+        <p><b>Version:</b> ERP v1.0</p>
+        <p id="storageInfo"><b>Storage:</b> --</p>
+
+    </div>
+
+</section>
+
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/projects.js"></script>
+    <script src="js/stock.js"></script>
+    <script src="js/issue.js"></script>
+    <script src="js/return.js"></script>
+    <script src="js/transaction.js"></script>
+    <script src="js/script.js"></script>
+<script src="js/settings.js"></script>
+</body>
+</html>

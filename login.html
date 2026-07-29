@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login | Signage Factory ERP</title>
+
+<link rel="stylesheet" href="login.css">
+
+</head>
+
+<body>
+
+<div class="login-container">
+    
+    <div class="login-box">
+        
+        <form id="loginForm">        <h1>🏭</h1>
+
+        <h2>Signage Factory ERP</h2>
+
+        <p>Please Login to Continue</p>
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Username"
+        >
+
+        <div class="password-box">
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Password"
+            >
+
+            <button
+                type="button"
+                id="togglePassword">
+                👁
+            </button>
+
+        </div>
+
+        <button id="loginBtn">
+            Login
+        </button>
+
+        <p class="forgot">
+
+            <a href="#" onclick="forgotPassword()">
+    Forgot Password?
+</a>
+        </p>
+
+        <small id="loginMessage"></small>
+
+  </form>
+
+    </div>
+
+</div>
+<script src="js/login.js"></script>
+
+</body>
+</html>

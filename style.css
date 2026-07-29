@@ -1,0 +1,410 @@
+/* ===========================
+   RESET
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#111827;
+    color:#fff;
+    display:flex;
+    min-height:100vh;
+}
+
+/* ===========================
+   SIDEBAR
+=========================== */
+
+.sidebar{
+    width:250px;
+    background:#1F2937;
+    padding:20px;
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.logo h2{
+    color:#3B82F6;
+}
+
+.menu{
+    list-style:none;
+}
+
+.menu li{
+    padding:15px;
+    margin-bottom:10px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.menu li:hover{
+    background:#374151;
+}
+
+.menu li.active{
+    background:#3B82F6;
+}
+
+/* ===========================
+   MAIN
+=========================== */
+
+.main{
+    margin-left:250px;
+    width:calc(100% - 250px);
+    min-height:100vh;
+}
+
+/* ===========================
+   TOPBAR
+=========================== */
+
+.topbar{
+    height:70px;
+    background:#1F2937;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 25px;
+    border-bottom:1px solid #374151;
+}
+
+.top-right{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+#searchBox{
+    padding:10px;
+    width:220px;
+    border:none;
+    border-radius:6px;
+    background:#374151;
+    color:white;
+}
+
+#clock{
+    font-weight:bold;
+}
+
+/* ===========================
+   PAGE
+=========================== */
+
+.page{
+    display:none;
+    padding:25px;
+}
+
+.active-page{
+    display:block;
+}
+
+.page h2{
+    margin-bottom:20px;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:768px) {
+    
+    /* Sidebar */
+    .sidebar {
+        width: 70px;
+    }
+    
+    .logo h2 {
+        display: none;
+    }
+    
+    .menu li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 15px 0;
+        font-size: 13px;
+    }
+    
+    /* Agar menu text <span> me hai to hide ho jayega */
+    .menu li span {
+        display: none;
+    }
+    
+    /* Main */
+    .main {
+        margin-left: 70px;
+        width: calc(100% - 70px);
+    }
+    
+    /* Topbar */
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .top-right {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    #searchBox {
+        width: 140px;
+    }
+    
+    /* Dashboard */
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Forms */
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Tables */
+    .table-container {
+        overflow-x: auto;
+    }
+    
+    table {
+        min-width: 700px;
+    }
+}
+/* ===========================
+   DASHBOARD
+=========================== */
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-top:20px;
+}
+
+.card{
+    background:#1F2937;
+    padding:20px;
+    border-radius:12px;
+    border:1px solid #374151;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-3px);
+}
+
+.card h3{
+    color:#9CA3AF;
+    font-size:16px;
+    margin-bottom:15px;
+}
+
+.card h1{
+    color:#3B82F6;
+    font-size:36px;
+}
+/* ===========================
+   PROJECT FORM
+=========================== */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+    margin-top:20px;
+}
+
+.form-grid input,
+.form-grid select{
+
+    width:100%;
+    padding:12px;
+
+    background:#111827;
+    color:#fff;
+
+    border:1px solid #374151;
+    border-radius:8px;
+
+    outline:none;
+}
+
+button{
+
+    margin-top:20px;
+
+    background:#3B82F6;
+    color:white;
+
+    border:none;
+
+    padding:12px 25px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+}
+
+button:hover{
+
+    opacity:.9;
+
+}
+/* ===========================
+   TABLE
+=========================== */
+
+table{
+    width:100%;
+    margin-top:20px;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:12px;
+    border:1px solid #374151;
+    text-align:left;
+}
+
+th{
+    background:#374151;
+}
+
+td{
+    background:#1F2937;
+}
+/* ===========================
+   MOBILE RESPONSIVE
+=========================== */
+
+@media (max-width:768px){
+
+/* Sidebar */
+.sidebar{
+    width:70px;
+}
+
+.sidebar h2{
+    display:none;
+}
+
+.menu li{
+    font-size:13px;
+    padding:14px 6px;
+    text-align:center;
+}
+
+/* Main */
+.main{
+    margin-left:70px;
+}
+
+/* Topbar */
+.topbar{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+}
+
+.top-right{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+#searchBox{
+    width:55%;
+}
+
+/* Dashboard Cards */
+.dashboard-grid{
+    grid-template-columns:1fr;
+}
+
+/* Forms */
+.form-grid{
+    grid-template-columns:1fr;
+}
+
+/* Tables */
+.table-container{
+    overflow-x:auto;
+}
+
+table{
+    min-width:700px;
+}
+
+}
+#currentDate{
+
+    color:#888;
+
+    font-size:13px;
+
+    margin-top:4px;
+
+}
+/* ===========================
+   Card Hover Effect
+=========================== */
+
+.card{
+
+    transition:0.25s ease;
+
+    cursor:pointer;
+
+}
+
+.card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+
+}
+#logoutBtn{
+
+    padding:8px 14px;
+
+    border:none;
+
+    border-radius:6px;
+
+    background:#dc2626;
+
+    color:#fff;
+
+    cursor:pointer;
+
+    margin-left:10px;
+
+}
+
+#logoutBtn:hover{
+
+    background:#b91c1c;
+
+}
